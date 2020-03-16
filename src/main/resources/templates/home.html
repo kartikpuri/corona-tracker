@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Corona Virus  Daily Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+	  
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+        
+  </head>
+
+  <body>
+  <div class="container">
+  <h1>Corona Virus Tracker Application</h1>
+  <p>This application lists the current number of cases reported among different regions.</p>
+  
+  <div class="jumbotron">
+  	<h1 class="display-4" th:text="${totalCasesCount}">Getting Total Count...</h1>
+    <p class="lead">Total cases reported till now.</p>
+    <hr class="my-3">
+    <p class="lead">
+        <span>Number of new cases reported:</span>
+        <span th:text="${newCasesCount}"></span>
+    </p>
+    
+  </div>
+    <table id="dtBasicExample" class="table table-striped table-bordered table-sm">
+    <thead>
+	    <tr>
+	    	<th>State</th>
+	    	<th>Country</th>
+	    	<th>Current Case Count</th>
+	    	<th>Previous Case Count</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr th:each="locationStat : ${locationStats}">
+            <td th:text="${locationStat.state}"></td>
+            <td th:text="${locationStat.country}"></td>
+            <td th:text="${locationStat.latestCasesCount}">0</td>
+            <td th:text="${locationStat.previousCasesCount}">0</td>
+        </tr>
+	    </tbody>
+    </table>
+	</div>  
+  </body>
+<script>
+$(document).ready( function () {
+    $('#dtBasicExample').DataTable({
+    		"pageLength": 50
+    });
+} );
+</script>
+</html>
